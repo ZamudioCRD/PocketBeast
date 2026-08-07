@@ -27,8 +27,8 @@ fun WolfAnimation(
 
     val frames = when (state) {
         CompanionState.Idle -> listOf(
-            R.drawable.wolf_idle_00,
-            R.drawable.wolf_idle_01
+            R.drawable.wolf_idle_000,
+            R.drawable.wolf_idle_001
         )
 
         CompanionState.Sleeping -> listOf(
@@ -37,18 +37,15 @@ fun WolfAnimation(
         )
 
         CompanionState.Hungry -> listOf(
-            R.drawable.wolf_hungry_00,
-            R.drawable.wolf_hungry_01
+            R.drawable.wolf_hungry_000,
+            R.drawable.wolf_hungry_001
         )
 
         CompanionState.Walking -> listOf(
-            R.drawable.wolf_walk_00,
-            R.drawable.wolf_walk_01,
-            R.drawable.wolf_walk_02,
-            R.drawable.wolf_walk_03,
-            R.drawable.wolf_walk_04,
-            R.drawable.wolf_walk_05,
-            R.drawable.wolf_walk_06
+            R.drawable.wolf_walk_000,
+            R.drawable.wolf_walk_001,
+            R.drawable.wolf_walk_002,
+            R.drawable.wolf_walk_003
         )
 
         CompanionState.Dirty,
