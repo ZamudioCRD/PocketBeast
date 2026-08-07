@@ -12,10 +12,13 @@ import androidx.compose.ui.res.painterResource
 import com.pocketbeast.app.R
 import com.pocketbeast.app.model.CompanionState
 import kotlinx.coroutines.delay
+import androidx.compose.ui.graphics.graphicsLayer
+import com.pocketbeast.app.game.Direction
 
 @Composable
 fun WolfAnimation(
     state: CompanionState,
+    direction: Direction,
     modifier: Modifier = Modifier
 ) {
     var currentFrame by remember {
@@ -67,9 +70,17 @@ fun WolfAnimation(
         }
     }
 
+    val safeFrame = currentFrame.coerceIn(0, frames.lastIndex)
+
     Image(
-        painter = painterResource(frames[currentFrame]),
-        contentDescription = "Fenrir: ${state.name}",
-        modifier = modifier
+        painter = painterResource(frames[safeFrame]),
+        contentDescription = "Fenrir",
+        modifier = modifier.graphicsLayer {
+            scaleX = if (direction == Direction.Left) {
+                1f
+            } else {
+                -1f
+            }
+        }
     )
 }

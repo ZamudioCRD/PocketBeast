@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import com.pocketbeast.app.factory.CompanionFactory
 import com.pocketbeast.app.game.CompanionGameLoop
 import com.pocketbeast.app.ui.PetCard
+import com.pocketbeast.app.game.CompanionBehavior
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +40,10 @@ fun CompanionScreen(modifier: Modifier = Modifier) {
     }
 
     CompanionGameLoop(
+        companion = companion
+    )
+
+    CompanionBehavior(
         companion = companion
     )
 

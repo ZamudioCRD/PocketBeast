@@ -13,6 +13,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.pocketbeast.app.model.Companion
 import java.util.Calendar
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.foundation.layout.offset
+import com.pocketbeast.app.game.CompanionMovement
+import com.pocketbeast.app.game.Direction
 
 @Composable
 fun PetCard(
@@ -26,26 +34,47 @@ fun PetCard(
 
     val currentState = companion.getState(currentHour)
 
+    var positionX by remember {
+        mutableFloatStateOf(0f)
+    }
+
+    var direction by remember {
+        mutableStateOf(Direction.Right)
+    }
+
+    CompanionMovement(
+        companion = companion,
+        //positionX = positionX,
+        //direction = direction,
+        onPositionChanged = {
+            positionX = it
+        },
+        onDirectionChanged = {
+            direction = it
+        }
+    )
+
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
+        Text("X: $positionX")
+
         WolfAnimation(
             state = currentState,
-            modifier = Modifier.size(224.dp)
+            direction = direction,
+            modifier = Modifier
+                .offset(x = positionX.dp)
+                .size(224.dp)
         )
-
-        val currentHour = Calendar
-            .getInstance()
-            .get(Calendar.HOUR_OF_DAY)
-
-        val currentState = companion.getState(currentHour)
 
         CompanionStatBars(
             companion = companion,
-            modifier = Modifier.fillMaxWidth(0.75f)
+            modifier = modifier.fillMaxWidth(0.75f)
         )
         val estado = if (companion.isSleeping(currentHour)) {
             "😴 Dormido"
@@ -53,6 +82,7 @@ fun PetCard(
             "😊 Despierto"
         }
 
+        Text("X: $positionX")
         Text(estado)
         Text("Estado: ${currentState.name}")
 

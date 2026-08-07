@@ -27,11 +27,11 @@ class Stats(
     }
 
     fun shower(amount: Int = 10) {
-        cleanliness = (cleanliness + amount).coerceAtLeast(0)
+        cleanliness = (cleanliness + amount).coerceAtLeast(MAX_CLEANLINESS)
     }
 
     fun heal(amount: Int = 10) {
-        health = (health + amount).coerceAtLeast(0)
+        health = (health + amount).coerceAtLeast(MAX_HEALTH)
     }
 
     fun passTime(isSleeping: Boolean) {

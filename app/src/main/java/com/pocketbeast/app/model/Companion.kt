@@ -1,6 +1,8 @@
 package com.pocketbeast.app.model
 
-import kotlin.compareTo
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 
 class Companion(
     val id: String,
@@ -32,6 +34,16 @@ class Companion(
         )
     }
 
+    var activity by mutableStateOf(CompanionActivity.Idle)
+        private set
+
+    fun startWalking() {
+        activity = CompanionActivity.Walking
+    }
+
+    fun stopWalking() {
+        activity = CompanionActivity.Idle
+    }
     fun getState(currentHour: Int): CompanionState {
 
         if (isSleeping(currentHour)) {
@@ -50,8 +62,9 @@ class Companion(
             return CompanionState.Hungry
         }
 
-        return CompanionState.Walking
-
-        //return CompanionState.Idle
+        return when (activity) {
+            CompanionActivity.Idle -> CompanionState.Idle
+            CompanionActivity.Walking -> CompanionState.Walking
+        }
     }
 }
